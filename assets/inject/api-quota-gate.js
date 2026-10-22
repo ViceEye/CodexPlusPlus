@@ -119,8 +119,12 @@
   // 百分比、重置时间、账号、积分和消费上限不动。图片额度横幅单独留下。
   function rewriteOfficialUsageStatus(value, policy = officialUsagePolicy()) {
     if (!policy.unlockSend || !isOfficialUsageStatus(value)) return null;
-    if (value.rate_limit.allowed === true && value.rate_limit.limit_reached !== true) return null;
-    return { ...value, rate_limit: { ...value.rate_limit, allowed: true, limit_reached: false } };
+    if (value.rate_limit.allowed === true && value.rate_limit.limit_reached !== true && value.rate_limit_reached_type == null) return null;
+    return {
+      ...value,
+      rate_limit_reached_type: null,
+      rate_limit: { ...value.rate_limit, allowed: true, limit_reached: false },
+    };
   }
 
   function rewriteOfficialUsagePayload(value, policy = officialUsagePolicy()) {

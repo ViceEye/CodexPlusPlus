@@ -45,6 +45,7 @@ function runNativeQuotaTests(createGate) {
   const runtime = gate.installNative(mixed);
   equal(main.state.data.rate_limit.allowed, true, "existing exhausted cache must unlock");
   equal(main.state.data.rate_limit.limit_reached, false, "limit_reached must clear");
+  equal(main.state.data.rate_limit_reached_type, null, "rate_limit_reached_type must clear to bypass Iei check");
   equal(main.state.data.rate_limit.used_percent, 100, "usage percentage must survive");
   equal(main.state.data.rate_limit_warning, raw.rate_limit_warning, "alerts are outside standalone scope");
   equal(main.state.data.credits, raw.credits, "credits must survive");
